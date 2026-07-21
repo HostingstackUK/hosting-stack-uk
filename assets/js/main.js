@@ -45,6 +45,33 @@
 
   document.querySelectorAll('[data-current-year]').forEach((node) => { node.textContent = new Date().getFullYear(); });
 
+  const contactForm = document.querySelector('[data-contact-form]');
+  const contactStatus = document.querySelector('[data-form-status]');
+  const updateContactField = (field, isInvalid) => {
+    const describedBy = field.getAttribute('aria-describedby')?.split(' ') || [];
+    const error = describedBy.map((id) => document.getElementById(id)).find((node) => node?.classList.contains('field-error'));
+    field.setAttribute('aria-invalid', String(isInvalid));
+    if (error) error.hidden = !isInvalid;
+  };
+
+  contactForm?.addEventListener('invalid', (event) => {
+    updateContactField(event.target, true);
+  }, true);
+  contactForm?.addEventListener('input', (event) => {
+    updateContactField(event.target, !event.target.validity.valid);
+    if (contactStatus) contactStatus.hidden = true;
+  });
+  contactForm?.addEventListener('change', (event) => {
+    updateContactField(event.target, !event.target.validity.valid);
+  });
+  contactForm?.addEventListener('submit', (event) => {
+    if (contactForm.getAttribute('action') !== '#') return;
+    event.preventDefault();
+    if (!contactStatus) return;
+    contactStatus.hidden = false;
+    contactStatus.focus();
+  });
+
   if (!reduceMotion && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
       if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
