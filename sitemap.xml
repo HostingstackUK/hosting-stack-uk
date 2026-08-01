@@ -2,6 +2,7 @@
 <!-- Replace example.com with the final production domain before launch. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://example.com/</loc></url>
+  <url><loc>https://hostingstackuk.com/resources.html</loc></url>
   <url><loc>https://example.com/kinsta-review.html</loc></url>
   <url><loc>https://example.com/wordpress-hosting-guide.html</loc></url>
   <url><loc>https://example.com/about.html</loc></url>
